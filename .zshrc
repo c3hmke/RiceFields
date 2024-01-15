@@ -17,6 +17,10 @@ export HISTFILE="$HOME/.cache/zsh/.zsh_history"                                 
 export PATH="$PATH:$HOME/.local/scripts:$HOME/.local/bin"                                   # PATH for executables
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"                     # history for aut0jump
 
+# Set up NVM
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
 
 #----------------------------------------------------------------------------------------------------------------------#
 #                                                    SHELL OPTIONS                                                     #
@@ -58,6 +62,10 @@ bindkey '^[[B' history-substring-search-up                                      
 # SYSTEM
 alias ll="ls -la"
 
+# BIT
+PATH="$PATH:/srv/bitgit.bit.nl/baceinabox/bin"						    # add baceinabox to path
+alias b="baceenv"
+
 # GIT
 alias g="git"
 alias gb="git branch"
@@ -74,3 +82,4 @@ alias d="docker"
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
