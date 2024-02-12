@@ -70,7 +70,9 @@ alias b="baceenv"
 alias d="docker"
 
 # DOTNET
+PATH="$PATH:$HOME/.dotnet/tools"                              # add dotnet tools to path
 alias dn="dotnet"
+alias dng="dotnet aspnet-codegenerator"
 
 # GIT
 alias g="git"
