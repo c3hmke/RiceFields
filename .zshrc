@@ -66,6 +66,12 @@ alias ll="ls -la"
 PATH="$PATH:/srv/bitgit.bit.nl/baceinabox/bin"						    # add baceinabox to path
 alias b="baceenv"
 
+# DOCKER
+alias d="docker"
+
+# DOTNET
+alias dn="dotnet"
+
 # GIT
 alias g="git"
 alias gb="git branch"
@@ -76,9 +82,6 @@ alias gu="git push"
 alias gt="git status"
 alias ga="git add"
 alias gc="git commit"
-
-# DOCKER
-alias d="docker"
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
