@@ -1,0 +1,96 @@
+version: 3
+console_title_template: "{{ .Shell }} :: {{ .PWD }}"
+final_space: true
+
+transient_prompt:
+  template: "❱ "
+  foreground_templates:
+    - "{{if gt .Code 0}}red{{end}}"
+    - "{{if eq .Code 0}}magenta{{end}}"
+  background: transparent
+
+blocks:
+  # -- Left info block containing most relevant information
+  - type: prompt
+    alignment: left
+    newline: true
+    segments:
+
+      # Current path information
+      - type: path
+        style: powerline
+        template: "   {{ .Location | replace \"/home/caius/\" \"~/\"}} "
+        foreground: "#f0efe7"
+        background: blue
+        properties:
+          style: folder
+
+      # Git information when in git folder
+      - type: git
+        style: powerline
+        powerline_symbol: 
+        template:
+          " \ue65d
+           {{ .Ref }}
+           {{ if .BranchStatus }} {{ .BranchStatus }}{{ end }}
+           {{ if .Working.Changed }}  {{ .Working.String }}{{ end }}
+           {{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }} "
+        foreground: "#f0efe7"
+        background: "#f14e32"
+        foreground_templates:
+          - "{{ if or (.Working.Changed) (.Staging.Changed) }}p:black{{ end }}"
+          - "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:white{{ end }}"
+          - "{{ if gt .Ahead 0 }}p:white{{ end }}"
+        background_templates:
+          - "{{ if or (.Working.Changed) (.Staging.Changed) }}p:yellow{{ end }}"
+          - "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:red{{ end }}"
+          - "{{ if gt .Ahead 0 }}#49416D{{ end }}"
+          - "{{ if gt .Behind 0 }}#7A306C{{ end }}"
+        properties:
+          branch_template: "{{ .Branch }}"
+          fetch_status: true
+          fetch_upstream_icon: true
+
+  # -- Right info block containing some more general information
+  - alignment: right
+    type: prompt
+    segments:
+
+      # Time of execution
+      - type: time
+        style: plain
+        foreground: "#007ACC"
+
+      # Execution duration
+      - type: executiontime
+        style: diamond
+        template: " {{ .FormattedMs }} "
+        foreground: "#ffffff"
+        background: "#8800dd"
+        properties:
+          style: austin
+          always_enabled: true
+
+      # Status code
+      - type: status
+        style: diamond
+        template: "  {{ reason .Code }} "
+        foreground: "#ffffff"
+        background: "#00897b"
+        background_templates:
+          - "{{ if .Error }}#e91e63{{ end }}"
+        properties:
+          always_enabled: true
+
+  # -- Typing line; This is where the actual prompt is
+  - alignment: left
+    type: prompt
+    newline: true
+    segments:
+      - type: text
+        style: plain
+        foreground_templates:
+          - "{{if gt .Code 0}}red{{end}}"
+          - "{{if eq .Code 0}}magenta{{end}}"
+        background: transparent
+        template: " ❱"
