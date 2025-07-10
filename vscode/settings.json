@@ -1,0 +1,9 @@
+{
+    "workbench.startupEditor": "none",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.tree.indent": 16,
+    "editor.minimap.enabled": false,
+    "editor.fontFamily": "0xProto Nerd Font",
+    "editor.fontSize": 13,
+    "editor.fontLigatures": true
+}
