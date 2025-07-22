@@ -50,7 +50,7 @@ alias gc="git commit"
 #----------------------------------------------------------------------------------------------------------------------#
 #                                                      METHODS                                                         #
 #----------------------------------------------------------------------------------------------------------------------#
-tgedit() {				                                                                # toggles edit permissions for
+tgedit() {				                                                                      # toggles edit permissions for
   local file="${ZDOTDIR:-$HOME}/.zshrc"                                                 # the rc file to prevent pranks
   if [ -w "$file" ]; then
     chmod 444 "$file"
