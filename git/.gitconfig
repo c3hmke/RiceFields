@@ -3,14 +3,3 @@
         email = cehmke91@gmail.com
 [core]
         excludesFile = ~/.config/git/.gitignore
-
-[alias]
-        l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --branches
-        b = branche
-        o = checkout
-        f = fetch
-        p = pull
-        u = push
-        t = status
-        a = add
-        c = commit
