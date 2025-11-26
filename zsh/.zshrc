@@ -41,7 +41,7 @@ alias gl="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%
 alias gt="git status"
 alias gb="git branch"
 alias go="git checkout"
-alias gf="git fetch"
+alias gf="git fetch -p"
 alias gp="git pull"
 alias gu="git push"
 alias ga="git add"
