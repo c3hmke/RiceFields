@@ -29,13 +29,38 @@ source $HOME/.config/shell/plugins/zsh-completions/zsh-completions.plugin.zsh   
 #----------------------------------------------------------------------------------------------------------------------#
 #                                                      ALIASES                                                         #
 #----------------------------------------------------------------------------------------------------------------------#
-alias ll="ls -la"
-alias b="baceenv"
-alias d="docker"
+# General
+alias ..="cd .."
+alias ...="cd ..."
+alias c="clear"
+alias h="history"
+alias ll="ls -l"
+alias la="ls -la"
+alias cp="cp -i"
+alias mv="mv -i"    
+alias rm="rm -i"
+alias path="echo $PATH | tr ':' '\n'"
 
+# Networking
+alias ports="lsof -i -P -n | grep LISTEN"
+alias myip="curl ifconfig.me"
+
+# Docker
+alias d="docker"
+alias dc="docker compose"
+alias dps="docker ps"
+
+# C# / .NET
 alias dn="dotnet"
+alias dnr="dotnet restore"
 alias dng="dotnet aspnet-codegenerator"
 
+# PHP / Laravel
+alias a="php artisan"
+alias as="php artisan serve"
+alias serve="php -S localhost:8000"
+
+# Git
 alias g="git"
 alias gl="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --branches"
 alias gt="git status"
@@ -59,13 +84,13 @@ tgedit() {                                                                      
   fi
 }
 
-#----------------------------------------------------------------------------------------------------------------------#
-#                                                      EXPORTS                                                         #
-#----------------------------------------------------------------------------------------------------------------------#
-# opencode
-export PATH=/home/caius/.opencode/bin:$PATH
+mkcd() {                                                                                # Create a dir and cd into it 
+  mkdir -p "$1" && cd "$1" 
+}
 
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                                        # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"                      # This loads nvm bash_completion
+psg() {                                                                                 # find a process
+  ps aux | grep -i "$1" | grep -v grep  
+}
+
+#----------------------------------------------------------------------------------------------------------------------#
+
