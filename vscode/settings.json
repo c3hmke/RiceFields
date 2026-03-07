@@ -5,5 +5,11 @@
     "editor.minimap.enabled": false,
     "editor.fontFamily": "0xProto Nerd Font",
     "editor.fontSize": 13,
-    "editor.fontLigatures": true
+    "editor.fontLigatures": true,
+    "chat.viewSessions.orientation": "stacked",
+    "terminal.integrated.fontFamily": "'0xProto Nerd Font Mono', 'Symbols Nerd Font Mono', monospace",
+    "terminal.integrated.lineHeight": 1.1,
+    "terminal.integrated.letterSpacing": 0,
+    "terminal.integrated.fontLigatures.enabled": true,
+    "terminal.integrated.defaultProfile.linux": "zsh"
 }
