@@ -36,9 +36,6 @@ alias c="clear"
 alias h="history"
 alias ll="ls -l"
 alias la="ls -la"
-alias cp="cp -i"
-alias mv="mv -i"    
-alias rm="rm -i"
 alias path="echo $PATH | tr ':' '\n'"
 
 # Networking
