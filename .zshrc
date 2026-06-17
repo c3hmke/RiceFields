@@ -24,7 +24,7 @@ autoload -Uz compinit                                                           
 zstyle ':completion:*' menu select                                                       # allow drop into completion
 
 bindkey '^[[A' history-substring-search-up                                               # history substr search prior
-bindkey '^[[B' history-substring-search-up                                               # history substr search latter
+bindkey '^[[B' history-substring-search-down                                             # history substr search latter
 
 # History options
 export HISTFILE="$HOME/.cache/zsh/.zsh_history"                                          # store history in cache dir
