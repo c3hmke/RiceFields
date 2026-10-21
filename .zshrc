@@ -1,44 +1,43 @@
+
 #----------------------------------------------------------------------------------------------------------------------#
 #                                                       PATH                                                           #
 #----------------------------------------------------------------------------------------------------------------------#
 export PATH="$PATH:$HOME/.local/bin"                             # Home/.local
 export PATH="$PATH:$HOME/.dotnet/tools"                          # .NET tools
-export PATH="$PATH:$HOME/.opencode/bin"                          # Opencode shell tool
+export PATH="$PATH:$HOME/.opencode/bin"                           # Opencode shell tool
 
-export NVM_DIR="$HOME/.nvm"                                      # Node Version Manager
-[ -s "$HOME/.nvm/nvm.sh" ] && \. "$HOME/.nvm/nvm.sh"
-
-export PATH="$PATH:/opt/Rider/bin"
-export PATH="$PATH:/opt/DataGrip/bin"
-export PATH="$PATH:/opt/WebStorm/bin"
+export PATH="$HOME/.asdf/shims:$PATH"                             # asdf shims (Node, etc.) take precedence
 
 #----------------------------------------------------------------------------------------------------------------------#
 #                                                       PROMPT                                                         #
 #----------------------------------------------------------------------------------------------------------------------#
-# Prompt configuration
-eval "$(oh-my-posh init zsh --config $HOME/.config/shell/omp.yml)"                       # oh-my-posh w/ settings
+eval "$(oh-my-posh init zsh --config "$(brew --prefix oh-my-posh)/themes/mytheme.yml")"
 
-# Navigational settings
-bindkey -e                                                                               # use emacs key bindings
-autoload -Uz compinit                                                                    # modern tab completion
-zstyle ':completion:*' menu select                                                       # allow drop into completion
+#----------------------------------------------------------------------------------------------------------------------#
+#                                                    ZSH SETTINGS                                                      #
+#----------------------------------------------------------------------------------------------------------------------#
+bindkey -e                                                                                # Emacs key bindings
 
-bindkey '^[[A' history-substring-search-up                                               # history substr search prior
-bindkey '^[[B' history-substring-search-down                                             # history substr search latter
-
-# History options
-export HISTFILE="$HOME/.cache/zsh/.zsh_history"                                          # store history in cache dir
-setopt histignorealldups                                                                 # ignore duplicates in history
-HISTSIZE=10000                                                                           # history in memory
-SAVEHIST=10000                                                                           # history on disk
+# History
+export HISTFILE="$HOME/.cache/zsh/.zsh_history"
+setopt histignorealldups
+HISTSIZE=10000
+SAVEHIST=10000
 
 #----------------------------------------------------------------------------------------------------------------------#
 #                                                    ZSH PLUGINS                                                       #
 #----------------------------------------------------------------------------------------------------------------------#
-source $HOME/.config/shell/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh           # syntax highlighting
-source $HOME/.config/shell/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh                   # auto-suggest commands
-source $HOME/.config/shell/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh # history w/ substring
-source $HOME/.config/shell/plugins/zsh-completions/zsh-completions.plugin.zsh                    # git auto completion
+FPATH="$(brew --prefix)/share/zsh-completions:$FPATH"                                     # Homebrew completions
+zstyle ':completion:*' menu select                                                        # Completion configuration
+source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh                   # Autocomplete + compinit
+source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh  # History substring search
+
+# History navigation
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Syntax highlighting (load last)
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 #----------------------------------------------------------------------------------------------------------------------#
 #                                                      ALIASES                                                         #
@@ -69,6 +68,7 @@ alias dng="dotnet aspnet-codegenerator"
 
 # PHP / Laravel
 alias a="php artisan"
+alias artisan="php artisan"
 alias as="php artisan serve"
 alias serve="php -S localhost:8000"
 
@@ -85,21 +85,23 @@ alias ga="git add"
 alias gc="git commit"
 
 #----------------------------------------------------------------------------------------------------------------------#
-#                                                      METHODS                                                         #
+#                                                      METHODS                                                        #
 #----------------------------------------------------------------------------------------------------------------------#
-tgedit() {                                                                              # toggles edit permissions for
-  local file="${ZDOTDIR:-$HOME}/.zshrc"                                                 # the rc file to prevent pranks
-  if [ -w "$file" ]; then
-    chmod 444 "$file"
-  else
-    chmod 644 "$file"
-  fi
+mkcd() {
+  mkdir -p "$1" && cd "$1"
 }
 
-mkcd() {                                                                                # Create a dir and cd into it 
-  mkdir -p "$1" && cd "$1" 
+psg() {
+  ps aux | grep -i "$1" | grep -v grep
 }
 
-psg() {                                                                                 # find a process
-  ps aux | grep -i "$1" | grep -v grep  
+switchphp() {
+  brew unlink php
+  brew link --force --overwrite php@$1
+
+  export PATH="/opt/homebrew/opt/php@$1/bin:$PATH"
+  export PATH="/opt/homebrew/opt/php@$1/sbin:$PATH"
+
+  source ~/.zshrc
+  php -v
 }
