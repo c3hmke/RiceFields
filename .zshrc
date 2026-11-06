@@ -83,6 +83,7 @@ alias gp="git pull"
 alias gu="git push"
 alias ga="git add"
 alias gc="git commit"
+alias gprune="git fetch --prune && git branch -vv | awk '/: gone]/ {print $1}' | xargs -r git branch -d"
 
 #----------------------------------------------------------------------------------------------------------------------#
 #                                                      METHODS                                                        #
